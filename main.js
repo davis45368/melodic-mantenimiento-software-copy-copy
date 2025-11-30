@@ -8,6 +8,14 @@ const songNameElement = document.getElementById('songName');
 const artistNameSongElement = document.getElementById('artistNameSong');
 //Contenedor de la imagen de la cancion en el reproductor
 const imgPlayerElement = document.getElementById('imgPlayer');
+// contenedor lateral
+const navbarLateral = document.getElementById("navbarLateral");
+// Boton de accion abrir y cerrar menu
+const headerToggle = document.getElementById("headerToggle");
+//Boton para la navegacion al inicio
+const navHome = document.getElementById('navHome');
+//Boton para la navegacion a favoritos
+const navFavoritos = document.getElementById('navFavoritos');
 
 //Activar o desactivar la funcion de ramdon
 ramdonAction.addEventListener('click', () => {
@@ -61,3 +69,35 @@ function playPause(button) {
         img.setAttribute('src', 'img/pause-icon.svg');
     }
 }
+
+//Abrir o cerrar menu lateral de navegacion
+headerToggle.addEventListener("click", function () {
+    navbarLateral.classList.toggle("open-lateral");
+    headerToggle.classList.toggle('open-lateral');
+
+    const listItems = document.getElementsByClassName('navbar-lateral-list-item');
+    for (const item of listItems) {
+        item.classList.toggle("open-lateral");
+    }
+
+    const itemsText = document.getElementsByClassName('item-text');
+    for (const item of itemsText) {
+        item.classList.toggle("open-lateral");
+    }
+});
+
+//Activar los contenedores de la pestaña de inicio
+navHome.addEventListener('click', () => {
+    songsContent.classList.add('show-content');
+    albumesContent.classList.add('show-content');
+    favoritesContent.classList.remove('show-content');
+    albumDataContent.classList.remove('show-content');
+})
+
+//Activar el contenedor de la pestaña de favoritos
+navFavoritos.addEventListener('click', () => {
+    songsContent.classList.remove('show-content');
+    albumesContent.classList.remove('show-content');
+    favoritesContent.classList.add('show-content');
+    albumDataContent.classList.remove('show-content');
+})
