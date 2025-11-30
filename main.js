@@ -16,6 +16,12 @@ const headerToggle = document.getElementById("headerToggle");
 const navHome = document.getElementById('navHome');
 //Boton para la navegacion a favoritos
 const navFavoritos = document.getElementById('navFavoritos');
+//Contenedor de la lista de caciones favoritas
+const favoritesContent = document.getElementById('favoritesContent');
+//Contenedor de la lista de canciones
+const songsContent = document.getElementById('songsContent');
+//Boton de marca como favorito
+const favoriteElement = document.getElementById('favorite');
 
 //Activar o desactivar la funcion de ramdon
 ramdonAction.addEventListener('click', () => {
@@ -38,6 +44,20 @@ function playSong(e) {
     songNameElement.innerText = songName;
     artistNameSongElement.innerText = artistName;
     imgPlayerElement.setAttribute('src', imgSrc);
+}
+
+//funcion para ponerle play a una cancion favorita
+function playSongFavorite(e) {
+    const parentAnchor = e.closest('.item-song');
+
+    const songName = parentAnchor.querySelector('.info-song-container span:first-child').innerText;
+    const artistName = parentAnchor.querySelector('.info-song-container span:last-child').innerText;
+    const imgSrc = parentAnchor.querySelector('.portada-song-mini').getAttribute('src');
+
+    songNameElement.innerText = songName;
+    artistNameSongElement.innerText = artistName;
+    imgPlayerElement.setAttribute('src', imgSrc);
+    favoriteElement.setAttribute('src', './img/favorite-icon.svg');
 }
 
 // Cambiar la duracion de la cancion
@@ -89,15 +109,20 @@ headerToggle.addEventListener("click", function () {
 //Activar los contenedores de la pestaña de inicio
 navHome.addEventListener('click', () => {
     songsContent.classList.add('show-content');
-    albumesContent.classList.add('show-content');
     favoritesContent.classList.remove('show-content');
-    albumDataContent.classList.remove('show-content');
 })
 
 //Activar el contenedor de la pestaña de favoritos
 navFavoritos.addEventListener('click', () => {
     songsContent.classList.remove('show-content');
-    albumesContent.classList.remove('show-content');
     favoritesContent.classList.add('show-content');
-    albumDataContent.classList.remove('show-content');
 })
+
+// Marca una cancion como favorita
+function favoriteCheck(button) {
+    if (button.src.includes('favorite-uncheck-icon.svg')) {
+        favoriteElement.setAttribute('src', './img/favorite-icon.svg');
+    } else {
+        favoriteElement.setAttribute('src', './img/favorite-uncheck-icon.svg');
+    }
+}
