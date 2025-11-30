@@ -16,6 +16,10 @@ const headerToggle = document.getElementById("headerToggle");
 const navHome = document.getElementById('navHome');
 //Boton para la navegacion a favoritos
 const navFavoritos = document.getElementById('navFavoritos');
+//Contenedor de la lista de canciones
+const songsContent = document.getElementById('songsContent');
+//Contenedor de la lista de caciones favoritas
+const favoritesContent = document.getElementById('favoritesContent');
 
 //Activar o desactivar la funcion de ramdon
 ramdonAction.addEventListener('click', () => {
@@ -89,15 +93,11 @@ headerToggle.addEventListener("click", function () {
 //Activar los contenedores de la pestaña de inicio
 navHome.addEventListener('click', () => {
     songsContent.classList.add('show-content');
-    albumesContent.classList.add('show-content');
     favoritesContent.classList.remove('show-content');
-    albumDataContent.classList.remove('show-content');
 })
 
 //Activar el contenedor de la pestaña de favoritos
 navFavoritos.addEventListener('click', () => {
     songsContent.classList.remove('show-content');
-    albumesContent.classList.remove('show-content');
     favoritesContent.classList.add('show-content');
-    albumDataContent.classList.remove('show-content');
 })
