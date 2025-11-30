@@ -22,16 +22,95 @@ const favoritesContent = document.getElementById('favoritesContent');
 const songsContent = document.getElementById('songsContent');
 //Boton de marca como favorito
 const favoriteElement = document.getElementById('favorite');
+// Contenernos lateral de la lista de albumes
+const navbarAlbumesLateral = document.getElementById("albumesLateral");
+// Boton de accion abrir y cerrar contenedor
+const headerAlbumesToggle = document.getElementById("toggleAlbumesLateral");
+//Contenedor de la lista de albumes
+const albumesContent = document.getElementById('albumesContent');
+//Contenedor de la informacion y canciones de un album
+const albumDataContent = document.getElementById('albumDataContent');
 
-//Activar o desactivar la funcion de ramdon
-ramdonAction.addEventListener('click', () => {
-    ramdonAction.querySelector('svg').classList.toggle('activate-action');
+// Abrir o cerra menu lateral de albumes
+headerAlbumesToggle.addEventListener("click", function () {
+    navbarAlbumesLateral.classList.toggle("expande");
+    headerAlbumesToggle.classList.toggle('expande');
+    document.getElementById('listAlbumes').classList.toggle('expande');
+
+    const listItems = document.getElementsByClassName('info-album-container');
+    for (const item of listItems) {
+        item.classList.toggle("expande");
+    }
+
+    const itemsText = document.getElementsByClassName('header-text');
+    for (const item of itemsText) {
+        item.classList.toggle("expande");
+    }
+
+});
+
+//Activar los contenedores de la pestaña de inicio
+navHome.addEventListener('click', () => {
+    songsContent.classList.add('show-content');
+    albumesContent.classList.add('show-content');
+    favoritesContent.classList.remove('show-content');
+    albumDataContent.classList.remove('show-content');
 })
 
-//Activar o desactivar la funcion de repetir
-repeatAction.addEventListener('click', () => {
-    repeatAction.querySelector('svg').classList.toggle('activate-action');
+//Activar el contenedor de la pestaña de favoritos
+navFavoritos.addEventListener('click', () => {
+    songsContent.classList.remove('show-content');
+    albumesContent.classList.remove('show-content');
+    favoritesContent.classList.add('show-content');
+    albumDataContent.classList.remove('show-content');
 })
+
+//Funcion de reproducir un album en especifico
+function playAlbum(e) {
+    songsContent.classList.remove('show-content');
+    favoritesContent.classList.remove('show-content');
+    albumesContent.classList.remove('show-content');
+    albumDataContent.classList.add('show-content');
+
+    const parentAnchor = e.closest('.item-album');
+    const albumName = parentAnchor.querySelector('.info-list-album--container span:first-child').innerText;
+    const artistName = parentAnchor.querySelector('.info-list-album--container span:last-child').innerText;
+    const imgSrc = parentAnchor.querySelector('.portada-album').getAttribute('src');
+
+
+    const albumNameElement = document.getElementById('albumName');
+    const artistNameElement = document.getElementById('artistName');
+    const albumPortadaElement = document.getElementById('albumPortada');
+
+    albumNameElement.innerText = albumName;
+    artistNameElement.innerText = artistName;
+    albumPortadaElement.setAttribute('src', imgSrc);
+}
+
+//Funcion para reproduccir un album lateral
+function playAlbumLateral(parentAnchor) {
+    songsContent.classList.remove('show-content');
+    favoritesContent.classList.remove('show-content');
+    albumesContent.classList.remove('show-content');
+    albumDataContent.classList.add('show-content');
+
+    const albumName = parentAnchor.querySelector('.info-album-container span:first-child').innerText;
+    const artistName = parentAnchor.querySelector('.info-album-container span:last-child').innerText;
+    const imgSrc = parentAnchor.querySelector('.portada-album-mini').getAttribute('src');
+
+    const albumNameElement = document.getElementById('albumName');
+    const artistNameElement = document.getElementById('artistName');
+    const albumPortadaElement = document.getElementById('albumPortada');
+
+    albumNameElement.innerText = albumName;
+    artistNameElement.innerText = artistName;
+    albumPortadaElement.setAttribute('src', imgSrc);
+}
+//Funcion para reproducir album sin abrir el contenedor
+function playAlbumLateralPlay(e) {
+    const parentAnchor = e.closest('.album-lateral-list-item');
+    playAlbumLateral(parentAnchor)
+}
 
 //Funcion para darle play a una cancion
 function playSong(e) {
